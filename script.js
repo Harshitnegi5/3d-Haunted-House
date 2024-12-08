@@ -47,6 +47,15 @@ light.position.set(-3,1,4);
 scene.add(light);
 
 
+const loadingManager = new THREE.LoadingManager();
+    loadingManager.onStart = () => {
+      document.getElementById('loading').style.display = 'block'; // Show loading message
+    };
+    loadingManager.onLoad = () => {
+      document.getElementById('loading').style.display = 'none'; // Hide loading message when done
+    };
+
+
 const fontLoader = new THREE.FontLoader();
 
 fontLoader.load(
@@ -77,7 +86,7 @@ fontLoader.load(
 
 let model;
 
-const loader = new THREE.GLTFLoader();
+const loader = new THREE.GLTFLoader(loadingManager);
 
 loader.load("./model/scene.gltf",(gltf)=>{
     model = gltf.scene
